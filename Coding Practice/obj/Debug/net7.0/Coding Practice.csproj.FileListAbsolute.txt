@@ -1,0 +1,15 @@
+C:\Users\ramla\OneDrive\Desktop\AliceBlue\Practice\Coding Practice\obj\Debug\net7.0\Coding Practice.csproj.AssemblyReference.cache
+C:\Users\ramla\OneDrive\Desktop\AliceBlue\Practice\Coding Practice\obj\Debug\net7.0\Coding Practice.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\ramla\OneDrive\Desktop\AliceBlue\Practice\Coding Practice\obj\Debug\net7.0\Coding Practice.AssemblyInfoInputs.cache
+C:\Users\ramla\OneDrive\Desktop\AliceBlue\Practice\Coding Practice\obj\Debug\net7.0\Coding Practice.AssemblyInfo.cs
+C:\Users\ramla\OneDrive\Desktop\AliceBlue\Practice\Coding Practice\obj\Debug\net7.0\Coding Practice.csproj.CoreCompileInputs.cache
+C:\Users\ramla\OneDrive\Desktop\AliceBlue\Practice\Coding Practice\bin\Debug\net7.0\Coding Practice.exe
+C:\Users\ramla\OneDrive\Desktop\AliceBlue\Practice\Coding Practice\bin\Debug\net7.0\Coding Practice.deps.json
+C:\Users\ramla\OneDrive\Desktop\AliceBlue\Practice\Coding Practice\bin\Debug\net7.0\Coding Practice.runtimeconfig.json
+C:\Users\ramla\OneDrive\Desktop\AliceBlue\Practice\Coding Practice\bin\Debug\net7.0\Coding Practice.dll
+C:\Users\ramla\OneDrive\Desktop\AliceBlue\Practice\Coding Practice\bin\Debug\net7.0\Coding Practice.pdb
+C:\Users\ramla\OneDrive\Desktop\AliceBlue\Practice\Coding Practice\obj\Debug\net7.0\Coding Practice.dll
+C:\Users\ramla\OneDrive\Desktop\AliceBlue\Practice\Coding Practice\obj\Debug\net7.0\refint\Coding Practice.dll
+C:\Users\ramla\OneDrive\Desktop\AliceBlue\Practice\Coding Practice\obj\Debug\net7.0\Coding Practice.pdb
+C:\Users\ramla\OneDrive\Desktop\AliceBlue\Practice\Coding Practice\obj\Debug\net7.0\Coding Practice.genruntimeconfig.cache
+C:\Users\ramla\OneDrive\Desktop\AliceBlue\Practice\Coding Practice\obj\Debug\net7.0\ref\Coding Practice.dll

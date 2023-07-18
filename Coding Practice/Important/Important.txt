@@ -1,0 +1,5 @@
+﻿1.  Ques - https://leetcode.com/problems/sum-of-absolute-differences-in-a-sorted-array/
+	sln - https://leetcode.com/problems/sum-of-absolute-differences-in-a-sorted-array/discuss/969535/JavaPython-3-Prefix-Sum-O(n)-code-w-brief-explanation-and-analysis.
+
+
+2. 
