@@ -120,7 +120,112 @@ namespace Coding_Practice.NeetCode.Revision
             head = head.next;
             return head;
         }
-        #endregion 
+        #endregion
+
+        #endregion
+
+        #region PriorityQueue using Heap
+        // link - https://www.geeksforgeeks.org/priority-queue-using-binary-heap/
+
+        public int heapSize = 0;
+        public int[] heapArray = new int[1000];
+
+        public int Parent(int i)
+        {
+            return (i - 1) / 2;
+        }
+        public int LeftChild(int i)
+        {
+            return 2 * i + 1;
+        }
+        public int RightChild(int i)
+        {
+            return 2 * i + 2;
+        }
+
+        // Function to shift up the node in order to maintain the heap property
+        public void ShiftUp(int i)
+        {
+            while(i > 0 && heapArray[i] > heapArray[Parent(i)])
+            {
+                int parent = Parent(i);
+
+                int temp = heapArray[i];
+                heapArray[i] = heapArray[parent];
+                heapArray[parent] = temp;
+
+                i = parent;
+            }
+        }
+        public void ShiftDown(int i)
+        {
+            int leftChild = LeftChild(i);
+            int rightChild = RightChild(i);
+            int larget = i;
+            if(leftChild < heapSize && heapArray[leftChild] > heapArray[larget])
+                larget = leftChild;
+            if (rightChild < heapSize && heapArray[rightChild] > heapArray[larget])
+                larget = rightChild;
+
+            if(i != larget)
+            {
+                int temp = heapArray[i];
+                heapArray[i] = heapArray[larget];
+                heapArray[larget] = temp;
+
+                ShiftDown(larget);
+            }
+        }
+
+        #region Insert. Time - O(nlogn)
+        public void Insert(int p)
+        {
+            heapSize++;
+            heapArray[heapSize - 1] = p;
+            ShiftUp(heapSize - 1);
+        }
+        #endregion
+
+        #region ExtractMax. Time - O(nlogn)
+        public int ExtractMax()
+        {
+            int root = heapArray[0];
+            heapArray[0] = heapArray[heapSize - 1];
+            heapSize--;
+
+            ShiftDown(0);
+            return root;
+        }
+        #endregion
+
+        #region Change priority of element at index i to p, Time - O(nlogn)
+        public void ChangePriority(int i, int p)
+        {
+            int oldP = heapArray[i];
+            heapArray[i] = p;
+            if (p > oldP)
+                ShiftUp(i);
+            else
+                ShiftDown(i);
+
+        }
+        #endregion
+
+        #region GetMax, Time - O(n)
+        public int GetMax()
+        {
+            return heapArray[0];
+        }
+        #endregion
+
+        #region Remove. Time - O(nlogn)
+        public void Remove(int i)
+        {
+            heapArray[i] = GetMax() + 1;
+            ShiftUp(i);
+            ExtractMax();
+        }
+        #endregion
 
         #endregion
     }
