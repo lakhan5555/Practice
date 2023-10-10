@@ -177,7 +177,7 @@ namespace Coding_Practice.NeetCode.Revision
             }
         }
 
-        #region Insert. Time - O(nlogn)
+        #region Insert. Time - O(logn)
         public void Insert(int p)
         {
             heapSize++;
@@ -186,7 +186,7 @@ namespace Coding_Practice.NeetCode.Revision
         }
         #endregion
 
-        #region ExtractMax. Time - O(nlogn)
+        #region ExtractMax. Time - O(logn)
         public int ExtractMax()
         {
             int root = heapArray[0];
@@ -211,14 +211,14 @@ namespace Coding_Practice.NeetCode.Revision
         }
         #endregion
 
-        #region GetMax, Time - O(n)
+        #region GetMax, Time - O(1)
         public int GetMax()
         {
             return heapArray[0];
         }
         #endregion
 
-        #region Remove. Time - O(nlogn)
+        #region Remove. Time - O(logn)
         public void Remove(int i)
         {
             heapArray[i] = GetMax() + 1;
