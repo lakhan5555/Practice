@@ -19,8 +19,17 @@ namespace Coding_Practice.NeetCode.Revision
             //b = a.Add(9);
             //b = a.Add(4);
 
-            int[] stones = { 3,7,8 };
-            int ans = LastStoneWeight(stones);
+            //int[] stones = { 3,7,8 };
+            //int ans = LastStoneWeight(stones);
+
+            //int[][] points = new int[2][];
+            //points[0] = new int[2]{ 1,3};
+            //points[1] = new int[2] { 2,-2};
+
+            //var ans = KClosest(points, 1);
+
+            int[] arr = { 3, 2, 1, 5, 6, 4 };
+            var ans = FindKthLargest(arr, 2);
         }
 
         #region Kth Largest Element in a Stream
@@ -208,6 +217,102 @@ namespace Coding_Practice.NeetCode.Revision
                 }
                 LastStoneWeightUtil(pq, ref size);
             }
+        }
+        #endregion
+
+        #region K Closest Points to Origin
+        int heapSize = 0;
+        public int[][] KClosest(int[][] points, int k)
+        {
+            int[][] pq = new int[k][];
+            foreach (var item in points)
+                InsertKClosest(pq, item, k);
+            return pq;
+        }
+        public void InsertKClosest(int[][] pq, int[] item, int k)
+        {
+            if(heapSize < k)
+            {
+                heapSize++;
+                pq[heapSize-1] = item;
+                ShiftUpKClosest(pq, heapSize - 1);
+            }
+            else
+            {
+                double distFromOrigin = Math.Sqrt(Math.Pow(item[0], 2) + Math.Pow(item[1], 2));
+                double distFromRoot = Math.Sqrt(Math.Pow(pq[0][0], 2) + Math.Pow(pq[0][1], 2));
+                
+                if (distFromOrigin < distFromRoot)
+                {
+                    pq[0] = item;
+                    ShiftDownKClosest(pq, 0);
+                }
+            }
+
+        }
+        public void ShiftUpKClosest(int[][] pq, int i)
+        {
+            
+            while (i > 0 && distFromOrigin(i,pq) > distFromOrigin(ParentKClosest(i),pq))
+            {
+                int parent = Parent(i);
+                var temp = pq[i];
+                pq[i] = pq[parent];
+                pq[parent] = temp;
+
+                i = parent;
+            }
+        }
+        public void ShiftDownKClosest(int[][] pq, int i)
+        {
+            int leftChild = LeftChildKClosest(i);
+            int rightChild = RightChildKClosest(i);
+            int largest = i;
+            if (leftChild < heapSize && distFromOrigin(leftChild,pq) > distFromOrigin(largest,pq))
+                largest = leftChild;
+            if (rightChild < heapSize && distFromOrigin(rightChild, pq) > distFromOrigin(largest, pq))
+                largest = rightChild;
+            if(i != largest)
+            {
+                var temp = pq[i];
+                pq[i] = pq[largest];
+                pq[largest] = temp;
+                ShiftDownKClosest(pq, largest);
+            }
+        }
+        public double distFromOrigin(int i, int[][] pq)
+        {
+            return Math.Sqrt(Math.Pow(pq[i][0], 2) + Math.Pow(pq[i][1], 2));
+        }
+        public int ParentKClosest(int i)
+        {
+            return (i - 1) / 2;
+        }
+        public int LeftChildKClosest(int i)
+        {
+            return 2 * i + 1;
+        }
+        public int RightChildKClosest(int i)
+        {
+            return 2 * i + 2;
+        }
+        #endregion
+
+        #region Kth Largest Element in an Array
+        public int FindKthLargest(int[] nums, int k)
+        {
+            PriorityQueue<int,int> priorityQueue= new PriorityQueue<int,int>();
+            int pqSize = 0;
+            foreach(var item in nums)
+            {
+                pqSize++;
+                priorityQueue.Enqueue(item, -1*item);
+            }
+            for(int i = 0; i< k-1; i++)
+            {
+                priorityQueue.Dequeue();
+            }
+            return priorityQueue.Peek();
         }
         #endregion
     }
