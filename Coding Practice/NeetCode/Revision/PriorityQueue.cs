@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Coding_Practice.NeetCode.Revision
 {
-    public class PriorityQueue
+    public class PriorityQueuee
     {
         // link - https://www.geeksforgeeks.org/priority-queue-set-1-introduction/
 

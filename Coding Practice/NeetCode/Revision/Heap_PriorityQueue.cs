@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -28,8 +29,18 @@ namespace Coding_Practice.NeetCode.Revision
 
             //var ans = KClosest(points, 1);
 
-            int[] arr = { 3, 2, 1, 5, 6, 4 };
-            var ans = FindKthLargest(arr, 2);
+            //int[] arr = { 3, 2, 1, 5, 6, 4 };
+            //var ans = FindKthLargest(arr, 2);
+
+            Twitter twitter = new Twitter();
+            twitter.PostTweet(1, 5);
+            twitter.PostTweet(1, 3);
+            var a = twitter.GetNewsFeed(1);
+            //twitter.Follow(1, 2);
+            //twitter.PostTweet(2, 6);
+            //a = twitter.GetNewsFeed(1);
+            //twitter.Unfollow(1, 2);
+            //a = twitter.GetNewsFeed(1);
         }
 
         #region Kth Largest Element in a Stream
@@ -315,5 +326,147 @@ namespace Coding_Practice.NeetCode.Revision
             return priorityQueue.Peek();
         }
         #endregion
+
+        #region Design Twitter
+        // sln link - https://leetcode.com/problems/design-twitter/solutions/82825/java-oo-design-with-most-efficient-function-getnewsfeed/
+        public class Twitter
+        {
+            private static int timeStamp = 0;
+            private Dictionary<int, User> userMap;
+            public class Tweet
+            {
+                public int id;
+                public int time;
+                public Tweet next;
+
+                public Tweet(int id)
+                {
+                    this.id = id;
+                    this.time = timeStamp++;
+                    this.next = null;
+                }
+            }
+
+            public class User
+            {
+                public int id;
+                public HashSet<int> followed;
+                public Tweet tweet_head;
+                public User(int id)
+                {
+                    this.id = id;
+                    this.followed = new HashSet<int>();
+                    follow(id);
+                    this.tweet_head = null;
+                }
+
+                public void follow(int id)
+                {
+                    this.followed.Add(id);
+                }
+                public void unfollow(int id)
+                {
+                    this.followed.Remove(id);
+                }
+                public void post(int id)
+                {
+                    Tweet t = new Tweet(id);
+                    t.next = tweet_head;
+                    tweet_head = t;
+                }
+            }
+
+            public Twitter()
+            {
+                this.userMap = new Dictionary<int, User>();
+            }
+
+            public void PostTweet(int userId, int tweetId)
+            {
+                User user;
+                if (userMap.ContainsKey(userId))
+                    user = userMap[userId];
+                else
+                {
+                    user = new User(userId);
+                    userMap.Add(userId, user);
+                }
+                user.post(tweetId);
+            }
+            public IList<int> GetNewsFeed(int userId)
+            {
+                IList<int> res = new List<int>();
+                User user;
+                if (!userMap.ContainsKey(userId))
+                    return res;
+                user = userMap[userId];
+                HashSet<int> followeds = user.followed;
+
+                var reverseComparer = new ReverseComparer<int>(Comparer<int>.Default);
+                PriorityQueue<Tweet, int> priorityQueue = new PriorityQueue<Tweet, int>(reverseComparer);
+                foreach(var item in followeds)
+                {
+                    var followee = userMap[item];
+                    Tweet t = followee.tweet_head;
+                    if (t != null)
+                        priorityQueue.Enqueue(followee.tweet_head, followee.tweet_head.time);
+                }
+                int n = 0;
+                while(priorityQueue.Count != 0 && n < 10)
+                {
+                    Tweet t = priorityQueue.Dequeue();
+                    res.Add(t.id);
+                    n++;
+                    if (t.next != null)
+                        priorityQueue.Enqueue(t, t.time);
+                }
+                return res;
+            }
+            public void Follow(int followerId, int followeeId)
+            {
+                User follower;
+                if(userMap.ContainsKey(followerId))
+                    follower = userMap[followerId];
+                else
+                {
+                    follower = new User(followerId);
+                    userMap.Add(followerId, follower);
+                }
+                User followee;
+                if(userMap.ContainsKey(followeeId))
+                    followee = userMap[followeeId];
+                else
+                {
+                    followee = new User(followeeId);
+                    userMap.Add(followeeId, followee);
+                }
+                follower.follow(followeeId);
+            }
+
+            public void Unfollow(int followerId, int followeeId)
+            {
+                if (!userMap.ContainsKey(followerId) || !userMap.ContainsKey(followeeId))
+                    return;
+
+                User follower = userMap[followerId];
+                follower.unfollow(followeeId);
+            }
+
+            public class ReverseComparer<T> : IComparer<T>
+            {
+                private readonly IComparer<T> baseComparer;
+                public ReverseComparer(IComparer<T> baseComparer)
+                {
+                    this.baseComparer = baseComparer;
+                }
+                public int Compare(T x, T y)
+                {
+                    return baseComparer.Compare(y, x);
+                }
+            }
+
+        }
+        #endregion
+
     }
 }
