@@ -19,7 +19,7 @@ namespace Coding_Practice
     {
         public static void Main(string[] args)
         {
-            new NeetCode.Revision.Heap_PriorityQueue().main();
+            new NeetCode.Revision.BackTracking().main();
             //IList<int> nums = new List<int> { 1, 1, 2, 2, 2, 3 };
             //var a = new Program().MinLengthAfterRemovals(nums);
             //int[] nums = { 14, 12, 14, 14, 12, 14, 14, 12, 12, 12, 12, 14, 14, 12, 14, 14, 14, 12, 12 };

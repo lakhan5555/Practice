@@ -418,7 +418,7 @@ namespace Coding_Practice.NeetCode.Revision
                     res.Add(t.id);
                     n++;
                     if (t.next != null)
-                        priorityQueue.Enqueue(t, t.time);
+                        priorityQueue.Enqueue(t.next, t.next.time);
                 }
                 return res;
             }
