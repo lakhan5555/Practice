@@ -182,6 +182,11 @@ namespace Coding_Practice.NeetCode.Revision
             for (;j < n; j++)
             {
                 maxCount = Math.Max(maxCount, ++ct[s[j] - 'A']);
+                // maxCount may be invalid at some points, but this doesn't matter, because it was valid
+                // earlier in the string, and all that matters is finding the max window that occurred
+                // anywhere in the string. Additionally, it will expand if and only if enough repeating
+                // characters appear in the window to make it expand. So whenever it expands, it's a valid
+                // expansion.
                 while (j - i + 1 - maxCount > k)
                     ct[s[i++] - 'A']--;
                 maxLength = Math.Max(maxLength, j - i + 1);
@@ -251,6 +256,146 @@ namespace Coding_Practice.NeetCode.Revision
                 }
             }
             return list;
+        }
+        #endregion
+
+        #region Revision
+        public class Revision
+        {
+            #region Frequency of the Most Frequent Element
+            public int MaxFrequency(int[] nums, int k)
+            {
+                Array.Sort(nums);
+                int i = 0, j = 0, sum = 0, ans = 0;
+                for(;j<nums.Length;j++)
+                {
+                    sum += nums[j];
+                    while ((j - i + 1) * nums[j] - sum > k)
+                        sum -= nums[i++];
+                    ans = Math.Max(ans, j - i + 1);
+                }
+                return ans;
+            }
+            #endregion
+
+            #region Longest Subarray of 1's After Deleting One Element
+            public int LongestSubarray(int[] nums)
+            {
+                int i = 0, j = 0, N = nums.Length, ct = 0, ans = 0;
+                for(; j < N;j++)
+                {
+                    ct += nums[j] == 0 ? 1 : 0;
+                    while(ct > 1)
+                        ct -= nums[i++] == 0 ? 1 : 0;
+                    ans = Math.Max(ans, j - i);
+                }
+                return ans;
+            }
+            #endregion
+
+            #region Longest Substring Without Repeating Characters
+            public int LengthOfLongestSubstring(string s)
+            {
+                int i = 0, j = 0, N = s.Length, ans = 0;
+                int[] ct = new int[128];
+                for (; j < N; j++)
+                {
+                    ct[s[j]]++;
+                    while (ct[s[j]] > 1)
+                        ct[s[i++]]--;
+                    ans = Math.Max(ans, j - i + 1);
+                }
+                return ans;
+            }
+            #endregion
+
+            #region Subarray Product Less Than K
+            public int NumSubarrayProductLessThanK(int[] nums, int k)
+            {
+                if(k == 0) return 0;
+                int i = 0, j = 0, N = nums.Length, mul = 1, ans = 0;
+                for(;j< N; j++)
+                {
+                    mul *= nums[j];
+                    while (i <= j && mul >= k)
+                        mul /= nums[i++];
+                    ans += j - i + 1;
+                }
+                return ans;
+            }
+            #endregion
+
+            #region Longest Repeating Character Replacement
+            public int CharacterReplacement(string s, int k)
+            {
+                int i = 0, j = 0,N = s.Length, maxLength = 0, maxCount = 0;
+                int[] arr = new int[26];
+                for (; j < N; j++)
+                {
+                    maxCount = Math.Max(maxCount, ++arr[s[j]-'A']);
+                    while (j - i + 1 - maxCount > k)
+                        arr[s[i++]-'A']--;
+                    maxLength = Math.Max(maxLength, j - i + 1);
+                }
+                return maxLength;
+            }
+            #endregion
+
+            #region Permutation in String
+            public bool CheckInclusion(string s1, string s2)
+            {
+                if(s1.Length > s2.Length) return false;
+                int[] fr1 = new int[26], fr2 = new int[26];
+                int i = 0, j = 0, n1 = s1.Length, n2 = s2.Length;
+                for (; i < n1; i++)
+                    fr1[s1[i] - 'a']++;
+                i = 0;
+                for(; j < n2;j++)
+                {
+                    fr2[s2[j] - 'a']++;
+                    if ((j - i + 1) == n1 && isEqual(fr1, fr2))
+                        return true;
+                    if ((j - i + 1) > n1)
+                        fr2[s2[i++]-'a']--;
+                }
+                return false;
+            }
+            public bool isEqual(int[] fr1, int[] fr2)
+            {
+                for(int i = 0; i < fr1.Length; i++)
+                    if (fr1[i] != fr2[i]) return false;
+                return true;
+            }
+            #endregion
+
+            #region Find All Anagrams in a String
+            public IList<int> FindAnagrams(string s, string p)
+            {
+                IList<int> list = new List<int>();
+                int i = 0, j = 0, n1 = s.Length, n2 = p.Length;
+                if (n2 > n1)
+                    return list;
+                int[] fr1 = new int[26], fr2 = new int[26];
+                for (; i < n2; i++)
+                    fr2[p[i] - 'a']++;
+                i = 0;
+                for (; j < n1; j++)
+                {
+                    fr1[s[j] - 'a']++;
+                    if((j-i+1) == n2 && isEquall(fr1,fr2))
+                        list.Add(i);
+                    if ((j - i + 1) >= n2)
+                        fr1[s[i++] - 'a']--;
+                }
+                return list;
+            }
+            public bool isEquall(int[] fr1, int[] fr2)
+            {
+                for (int i = 0; i < fr2.Length; i++)
+                    if (fr1[i] != fr2[i]) return false;
+                return true;
+            }
+            #endregion
         }
         #endregion
 
