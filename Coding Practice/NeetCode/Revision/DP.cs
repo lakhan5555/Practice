@@ -280,6 +280,46 @@ namespace Coding_Practice.NeetCode.Revision
         }
         #endregion
 
+        #region House Robber
+        // link - https://leetcode.com/problems/house-robber/description/
+        public int Rob(int[] nums)
+        {
+            if(nums.Length== 0)
+                return 0;
+            int first = 0, second = nums[0], n = nums.Length, curr = nums[0];
+            for(int i = 1; i < n; i++)
+            {
+                curr = Math.Max(first + nums[i], second);
+                first = second;
+                second = curr;
+            }
+            return curr;
+        }
+        #endregion
+
+        #region House Robber II
+        // link - https://leetcode.com/problems/house-robber-ii/description/
+        // sln link - https://leetcode.com/problems/house-robber-ii/solutions/59921/9-lines-0ms-o-1-space-c-solution/
+        public int Rob1(int[] nums)
+        {
+            int n = nums.Length;
+            if (n == 1)
+                return nums[0];
+            return Math.Max(Robber(nums, 0, n - 2), Robber(nums, 1, n - 1));
+        }
+        public int Robber(int[] nums, int l, int r)
+        {
+            int first = 0, second = 0, curr = 0;
+            for(int i = l; i <= r; i++)
+            {
+                curr = Math.Max(first + nums[i], second);
+                first = second;
+                second = curr;
+            }
+            return curr;
+        }
+        #endregion
+
         #region Revision
         public class Revision
         {
