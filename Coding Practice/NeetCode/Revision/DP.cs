@@ -21,8 +21,11 @@ namespace Coding_Practice.NeetCode.Revision
             //int n = 1, k = 6, target = 3;
             //var ans = NumRollsToTarget(n,k, target);
 
-            string s = "babad";
-            var ans = LongestPalindrome(s);
+            //string s = "babad";
+            //var ans = LongestPalindrome(s);
+
+            int[] nums = new int[] { 10, 9, 2, 5, 3, 7, 101, 18 };
+            var ans = LengthOfLIS(nums);
         }
 
         #region Min Cost Climbing Stairs
@@ -353,6 +356,23 @@ namespace Coding_Practice.NeetCode.Revision
         }
         #endregion
 
+        #region Longest Increasing Subsequence
+        public int LengthOfLIS(int[] nums)
+        {
+            int n = nums.Length;
+            int[] dp = new int[n];
+            for (int i = 0; i < n; i++)
+                dp[i] = 1;
+            for(int i = 1;i<n;i++)
+                for(int j = 0; j < i; j++)
+                {
+                    if (nums[i] > nums[j] && dp[i] < dp[j] + 1)
+                        dp[i] = dp[j] + 1;
+                }
+            return dp.Max();
+        }
+        #endregion
+
         #region Revision
         public class Revision
         {
@@ -481,6 +501,8 @@ namespace Coding_Practice.NeetCode.Revision
 
 
             #endregion
+
+            
 
         }
         #endregion
