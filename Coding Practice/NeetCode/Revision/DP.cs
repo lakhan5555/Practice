@@ -320,6 +320,39 @@ namespace Coding_Practice.NeetCode.Revision
         }
         #endregion
 
+        #region Maximum Product Subarray
+        public int MaxProduct(int[] nums)
+        {
+            int i = 0, n = nums.Length, l = 0, r = 0, max = int.MinValue;
+            for (; i < n; i++)
+            {
+                l = (l == 0 ? 1 : l) * nums[i];
+                r = (r == 0 ? 1 : r) * nums[n - i - 1];
+                max = Math.Max(max, Math.Max(l, r));
+            }
+            return max;
+        }
+        #endregion
+
+        #region Decode Ways
+        public int NumDecodings(string s)
+        {
+            int n = s.Length;
+            int[] dp = new int[n + 1];
+            dp[n] = 1;
+            for(int i = n-1;i>= 0; i++)
+            {
+                if (s[i] != '0')
+                {
+                    dp[i] = dp[i + 1];
+                    if ((i < n - 1) && (s[i] == '1' || (s[i] == '2' && Convert.ToInt32(s[i + 1]) < 7)))
+                        dp[i] += dp[i + 2];
+                }
+            }
+            return dp[0];
+        }
+        #endregion
+
         #region Revision
         public class Revision
         {
@@ -445,6 +478,8 @@ namespace Coding_Practice.NeetCode.Revision
                 memo[m, n] = UniquePathsMemoUtil(m - 1, n, memo) + UniquePathsMemoUtil(m, n - 1, memo);
                 return memo[m, n];
             }
+
+
             #endregion
 
         }
