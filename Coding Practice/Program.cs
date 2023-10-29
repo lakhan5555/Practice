@@ -12,6 +12,7 @@ using Coding_Practice.Revision_2.Tree;
 using Coding_Practice.GfgMustDo.ForCompaniesLikeAmazonMicrosoftetc.TreeFolder;
 using Coding_Practice.Revision_2.DPFolder;
 using Coding_Practice.NeetCode.Revision;
+using Coding_Practice.Leetcode_TopInterviewQuestions;
 
 namespace Coding_Practice
 {
@@ -19,11 +20,119 @@ namespace Coding_Practice
     {
         public static void Main(string[] args)
         {
-            new NeetCode.Revision.DP().main();
+            //new TopInterviewQuestions().Main();
             //IList<int> nums = new List<int> { 1, 1, 2, 2, 2, 3 };
             //var a = new Program().MinLengthAfterRemovals(nums);
             //int[] nums = { 14, 12, 14, 14, 12, 14, 14, 12, 12, 12, 12, 14, 14, 12, 14, 14, 14, 12, 12 };
             //var ans = new Program().MinOperations(nums);
+
+            //IList<int> nums = new List<int>() { 1,2,1};
+            //var ans = new Program().SumCounts(nums);
+
+            //string s = "11000111";
+            //var ans = new Program().MinChanges(s);
+
+            int[] nums = { 7, 12, 9, 8, 9, 15 };int k = 4;
+            var ans = new Program().FindKOr(nums, k);
+        }
+        
+        public int FindKOr(int[] nums, int k)
+        {
+            int ans = 0, n = nums.Length;
+            if(k  == 1)
+            {
+                ans = nums[0];
+                for (int i = 1; i < n; i++)
+                    ans = ans | nums[i];
+            }
+            else if (k == n)
+            {
+                ans = nums[0];
+                for (int i = 1; i < n; i++)
+                    ans = ans & nums[i];
+            }
+            else
+            {
+                int max = nums.Max();
+                for(int i = 0;max >= Math.Pow(2, i); i++)
+                {
+                    int count = 0;
+                    for(int j = 0; j < n; j++)
+                    {
+                        int bit = Convert.ToInt32(Math.Pow(2, i));
+                        if((bit & nums[j]) == bit)
+                            count++;
+                        if (count == k)
+                            break;
+                    }
+                    if(count == k)
+                        ans += Convert.ToInt32(Math.Pow(2, i));
+                }
+            }
+            return ans;
+        }
+        public int SumCounts(int[] nums)
+        {
+            int n = nums.Length, ans = 0;
+            Int64 mod = Convert.ToInt64(Math.Pow(10, 9)) + 7;
+            for(int i = 0; i < n; i++)
+            {
+                for(int j = i; j < n; j++)
+                {
+                    HashSet<int> set = new HashSet<int>();
+                    int ans1 = 0;
+                    for(int k = i; k <= j; k++)
+                    {
+                        if (!set.Contains(nums[k]))
+                            ans1++;
+                        set.Add(nums[k]);
+                    }
+
+                    if(ans1 != 0 && (ans1 > Int32.MaxValue/ ans1))
+                    {
+                        Int64 aa = ans1 * ans1;
+                        aa = aa % mod;
+                        ans += Convert.ToInt32(aa);
+                    }
+                    else
+                        ans += ans1 * ans1;
+                    ans = Convert.ToInt32(ans % mod);
+                }
+            }
+            return ans;
+        }
+        public int MinChanges(string s)
+        {
+            int NoOf0 = 0, NoOf1 = 0, n = s.Length;
+            for(int i = 0; i < n; i++)
+            {
+                if(i == 0)
+                {
+                    if (Convert.ToInt32(s[i].ToString()) == 0)
+                        NoOf0++;
+                    else
+                        NoOf1++;
+                }
+                else
+                {
+                    int a = Convert.ToInt32(s[i].ToString());
+                    if(a == 0)
+                    {
+                        if (s[i] == s[i - 1])
+                            NoOf0--;
+                        else
+                            NoOf0++;
+                    }
+                    else
+                    {
+                        if (s[i] == s[i - 1])
+                            NoOf1--;
+                        else
+                            NoOf1++;
+                    }
+                }
+            }
+            return Math.Abs(Math.Max(NoOf0, NoOf1));
         }
         public int MinOperations(IList<int> nums, int k)
         {
