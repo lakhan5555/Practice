@@ -434,5 +434,20 @@ namespace Coding_Practice.Leetcode_TopInterviewQuestions
         }
         #endregion
 
+        #region Reverse Linked List
+        public ListNode ReverseList(ListNode head)
+        {
+            ListNode prev = null, next, temp = head;
+            while(temp != null)
+            {
+                next = temp.next;
+                temp.next = prev;
+                prev = temp;
+                temp = next;
+            }
+            return prev;
+        }
+        #endregion
+
     }
 }
