@@ -13,6 +13,7 @@ using Coding_Practice.GfgMustDo.ForCompaniesLikeAmazonMicrosoftetc.TreeFolder;
 using Coding_Practice.Revision_2.DPFolder;
 using Coding_Practice.NeetCode.Revision;
 using Coding_Practice.Leetcode_TopInterviewQuestions;
+using Coding_Practice.GfgMustDo.ForCompaniesLikeAmazonMicrosoftetc.ArrayFolder;
 
 namespace Coding_Practice
 {
@@ -20,7 +21,7 @@ namespace Coding_Practice
     {
         public static void Main(string[] args)
         {
-            //new TopInterviewQuestions().Main();
+            new TopInterviewQuestions().Main();
             //IList<int> nums = new List<int> { 1, 1, 2, 2, 2, 3 };
             //var a = new Program().MinLengthAfterRemovals(nums);
             //int[] nums = { 14, 12, 14, 14, 12, 14, 14, 12, 12, 12, 12, 14, 14, 12, 14, 14, 14, 12, 12 };
@@ -32,10 +33,118 @@ namespace Coding_Practice
             //string s = "11000111";
             //var ans = new Program().MinChanges(s);
 
-            int[] nums = { 7, 12, 9, 8, 9, 15 };int k = 4;
-            var ans = new Program().FindKOr(nums, k);
+            //int[] nums = { 7, 12, 9, 8, 9, 15 };int k = 4;
+            //var ans = new Program().FindKOr(nums, k);
+
+            //int[] arr = { 3, 5, -1, 8, 12 };
+            //var ans = ArrayChallenge(arr);
+
+            //string str = ")(((coder)(byte))";
+            //var ans = SearchingChallenge(str);
         }
-        
+
+        #region Quantifier research
+        #region Question 1 - string challenege
+        public bool IsPalindrome(string str)
+        {
+            int l = 0, r = str.Length - 1;
+            while(l < r)
+            {
+                if (str[l++] != str[r--])
+                    return false;
+            }
+            return true;
+        }
+
+        public string StringChallenge(string str)
+        {
+            if (IsPalindrome(str))
+            {
+                return "palindrome";
+            }
+
+            for (int i = 0; i < str.Length; i++)
+            {
+                string firstOption = str.Remove(i, 1);
+                if (firstOption.Length >= 3 && IsPalindrome(firstOption))
+                {
+                    return str[i].ToString();
+                }
+
+                for (int j = i + 1; j < str.Length; j++)
+                {
+                    string secondOption = str.Remove(j, 1).Remove(i, 1);
+                    if (secondOption.Length >= 3 && IsPalindrome(secondOption))
+                    {
+                        return str[i].ToString() + str[j];
+                    }
+                }
+            }
+            return "not possible";
+        }
+
+        #endregion
+
+        #region Question 2 - Array challenge
+        public static string ArrayChallenge(int[] arr)
+        {
+            Array.Sort(arr);
+
+            int highestNum = arr[arr.Length - 1];
+            int sum = 0;
+            for (int i = 0; i < arr.Length - 1; i++)
+            {
+                sum += arr[i];
+                for (int j = 0; j < arr.Length - 1; j++)
+                {
+                    if (i != j)
+                    {
+                        sum += arr[j];
+                        if (sum == highestNum)
+                        {
+                            return "true";
+                        }
+                    }
+                }
+                for (int k = 0; k < arr.Length - 1; k++)
+                {
+                    if (i != k)
+                    {
+                        sum -= arr[k];
+                        if (sum == highestNum)
+                        {
+                            return "true";
+                        }
+                    }
+                }
+                sum = 0;
+            }
+
+            return "false";
+        }
+
+        #endregion
+
+        #region Question 3 - Searching challenge
+        public static int SearchingChallenge(string str)
+        {
+            Stack<char> stack = new Stack<char>();
+            foreach(char item in str)
+            {
+                if (item == '(')
+                    stack.Push(')');
+                else if(item == ')')
+                {
+                    if (stack.Count == 0 || stack.Pop() != item)
+                        return 0;
+                }
+            }
+            return stack.Count == 0 ? 1 : 0;
+        }
+        #endregion
+
+        #endregion
+
         public int FindKOr(int[] nums, int k)
         {
             int ans = 0, n = nums.Length;

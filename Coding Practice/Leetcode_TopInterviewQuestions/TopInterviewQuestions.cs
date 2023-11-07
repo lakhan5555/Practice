@@ -20,8 +20,11 @@ namespace Coding_Practice.Leetcode_TopInterviewQuestions
             //var ans = LongestCommonPrefix(str);
             #endregion
 
-            string s1 = "mississippi", s2 = "issip";
-            var ans = StrStr(s1, s2);
+            //string s1 = "mississippi", s2 = "issip";
+            //var ans = StrStr(s1, s2);
+
+            int[] nums = { 1,2,3 };
+            var ans = Permute(nums);
         }
 
         #region Two Sum
@@ -327,6 +330,78 @@ namespace Coding_Practice.Leetcode_TopInterviewQuestions
             }
         }
         #endregion
+
+        #region 3Sum
+        public IList<IList<int>> ThreeSum(int[] nums)
+        {
+            Array.Sort(nums);
+            int n = nums.Length, i = 0;
+            List<IList<int>> ans = new List<IList<int>>();
+            while(i < n-2)
+            {
+                int j = i + 1, k = n - 1;
+                while(j < k)
+                {
+                    int sum = nums[j] + nums[k];
+                    if (nums[i] + nums[j] + nums[k] == 0)
+                    {
+                        IList<int> list = new List<int>() { nums[i], nums[j], nums[k] };
+                        ans.Add(list);
+                        while ((j + 1) < k && nums[j] == nums[j + 1])
+                            j++;
+                        while ((k -1) > j && nums[k] == nums[k - 1])
+                            k--;
+                        j++;k--;
+                    }
+                    else if (sum > nums[i])
+                        k--;
+                    else
+                        j++;
+                }
+                while((i+1) < n-2 && nums[i] == nums[i+1])
+                    i++;
+                i++;
+            }
+            return ans;
+        }
+        #endregion
+
+        #region Delete Node in a Linked List
+        public void DeleteNode(ListNode node)
+        {
+            node.val = node.next.val;
+            ListNode temp = node.next;
+            node.next = node.next.next;
+            temp = null;
+        }
+        #endregion
+
+        #region Permutations
+        public IList<IList<int>> Permute(int[] nums)
+        {
+            IList<IList<int>> ans = new List<IList<int>>();
+            PermuteBacktrack(ans, new List<int>(), nums, 0);
+            return ans;
+        }
+        public void PermuteBacktrack(IList<IList<int>> ans, IList<int> list, int[] nums, int index)
+        {
+            if(list.Count == nums.Length)
+                ans.Add(new List<int>(list));
+            else
+            {
+                for(int i = 0; i < nums.Length; i++)
+                {
+                    if(index == 0 || i != index)
+                    {
+                        list.Add(nums[i]);
+                        PermuteBacktrack(ans, list, nums, i + 1);
+                        list.RemoveAt(list.Count - 1);
+                    }
+                }
+            }
+        }
+        #endregion
+
 
     }
 }
