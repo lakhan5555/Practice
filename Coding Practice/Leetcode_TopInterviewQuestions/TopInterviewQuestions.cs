@@ -24,7 +24,7 @@ namespace Coding_Practice.Leetcode_TopInterviewQuestions
             //var ans = StrStr(s1, s2);
 
             int[] nums = { 1,2,3 };
-            var ans = Permute(nums);
+            var ans = Subsets(nums);
         }
 
         #region Two Sum
@@ -380,10 +380,10 @@ namespace Coding_Practice.Leetcode_TopInterviewQuestions
         public IList<IList<int>> Permute(int[] nums)
         {
             IList<IList<int>> ans = new List<IList<int>>();
-            PermuteBacktrack(ans, new List<int>(), nums, 0);
+            PermuteBacktrack(ans, new List<int>(), nums);
             return ans;
         }
-        public void PermuteBacktrack(IList<IList<int>> ans, IList<int> list, int[] nums, int index)
+        public void PermuteBacktrack(IList<IList<int>> ans, IList<int> list, int[] nums)
         {
             if(list.Count == nums.Length)
                 ans.Add(new List<int>(list));
@@ -391,17 +391,48 @@ namespace Coding_Practice.Leetcode_TopInterviewQuestions
             {
                 for(int i = 0; i < nums.Length; i++)
                 {
-                    if(index == 0 || i != index)
-                    {
-                        list.Add(nums[i]);
-                        PermuteBacktrack(ans, list, nums, i + 1);
-                        list.RemoveAt(list.Count - 1);
-                    }
+                    if (list.Contains(nums[i]))
+                        continue;
+                    list.Add(nums[i]);
+                    PermuteBacktrack(ans, list, nums);
+                    list.RemoveAt(list.Count - 1);
                 }
             }
         }
         #endregion
 
+        #region Reverse String
+        public void ReverseString(char[] s)
+        {
+            int l = 0, r = s.Length - 1;
+            while (l < r)
+            {
+                char temp = s[l];
+                s[l] = s[r];
+                s[r] = temp;
+                l++;r--;
+            }
+        }
+        #endregion
+
+        #region  Subsets
+        public IList<IList<int>> Subsets(int[] nums)
+        {
+            IList<IList<int>> ans = new List<IList<int>>();
+            SubsetsBacktrack(ans, new List<int>(), nums, 0);
+            return ans;
+        }
+        public void SubsetsBacktrack(IList<IList<int>> ans, IList<int> list, int[] nums, int index)
+        {
+            ans.Add(new List<int>(list));
+            for(int i = index; i < nums.Length; i++)
+            {
+                list.Add(nums[i]);
+                SubsetsBacktrack(ans, list, nums, i + 1);
+                list.RemoveAt(list.Count - 1);
+            }
+        }
+        #endregion
 
     }
 }
