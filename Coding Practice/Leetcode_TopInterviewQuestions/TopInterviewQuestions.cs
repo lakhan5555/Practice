@@ -23,8 +23,11 @@ namespace Coding_Practice.Leetcode_TopInterviewQuestions
             //string s1 = "mississippi", s2 = "issip";
             //var ans = StrStr(s1, s2);
 
-            int[] nums = { 1,2,3 };
-            var ans = Subsets(nums);
+            //int[] nums = { 1,2,3 };
+            //var ans = Subsets(nums);
+
+            string s = "abcadcbb";
+            var ans = LengthOfLongestSubstring1(s);
         }
 
         #region Two Sum
@@ -447,6 +450,79 @@ namespace Coding_Practice.Leetcode_TopInterviewQuestions
             }
             return prev;
         }
+        #endregion
+
+        #region Add Two Numbers
+        public ListNode AddTwoNumbers(ListNode l1, ListNode l2)
+        {
+            int len1 = 0, len2 = 0;
+            ListNode temp1 = l1, temp2 = l2;
+            while(temp1 != null)
+            {
+                len1++;
+                temp1 = temp1.next;
+            }
+            while(temp2 != null)
+            {
+                len2++;
+                temp2 = temp2.next;
+            }
+            temp1 = l1; temp2 = l2;
+            if(len1 > len2)
+            {
+                AddTwoNumbersUtil(temp1, temp2);
+                return l1;
+            }
+            else
+            {
+                AddTwoNumbersUtil(temp2, temp1);
+                return l2;
+            }
+        }
+        public void AddTwoNumbersUtil(ListNode l1, ListNode l2)
+        {
+            int carry = 0, val;
+            ListNode prev = null;
+            while (l2 != null)
+            {
+                prev = l1;
+                val = l1.val + l2.val + carry;
+                l1.val = val % 10;
+                carry = val / 10;
+                l1 = l1.next;
+                l2 = l2.next;
+            }
+            while(l1 != null)
+            {
+                prev = l1;
+                val = l1.val + carry;
+                l1.val = val % 10;
+                carry = val / 10;
+                l1 = l1.next;
+            }
+            if(carry == 1)
+            {
+                ListNode listNode = new ListNode(1);
+                prev.next = listNode;
+            }
+        }
+        #endregion
+
+        #region Longest Substring Without Repeating Characters
+        public int LengthOfLongestSubstring(string s)
+        {
+            int n = s.Length, i = 0, j = 0, maxLength = 0;
+            int[] arr = new int[128];
+            for (; j < n; j++)
+            {
+                arr[s[j]]++;
+                while (i < j && arr[s[j]] > 1)
+                    arr[s[i++]]--;
+                maxLength = Math.Max(maxLength, j - i + 1);
+            }
+            return maxLength;
+        }
+
         #endregion
 
     }

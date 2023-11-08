@@ -1,18 +1,21 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\ramla\\OneDrive\\Desktop\\Interview\\CodingPractice\\Coding Practice\\Coding Practice.csproj": {}
+    "C:\\Users\\ramla\\OneDrive\\Desktop\\AliceBlue\\Practice\\Coding Practice\\Coding Practice.csproj": {}
   },
   "projects": {
-    "C:\\Users\\ramla\\OneDrive\\Desktop\\Interview\\CodingPractice\\Coding Practice\\Coding Practice.csproj": {
+    "C:\\Users\\ramla\\OneDrive\\Desktop\\AliceBlue\\Practice\\Coding Practice\\Coding Practice.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\ramla\\OneDrive\\Desktop\\Interview\\CodingPractice\\Coding Practice\\Coding Practice.csproj",
+        "projectUniqueName": "C:\\Users\\ramla\\OneDrive\\Desktop\\AliceBlue\\Practice\\Coding Practice\\Coding Practice.csproj",
         "projectName": "Coding Practice",
-        "projectPath": "C:\\Users\\ramla\\OneDrive\\Desktop\\Interview\\CodingPractice\\Coding Practice\\Coding Practice.csproj",
+        "projectPath": "C:\\Users\\ramla\\OneDrive\\Desktop\\AliceBlue\\Practice\\Coding Practice\\Coding Practice.csproj",
         "packagesPath": "C:\\Users\\ramla\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\ramla\\OneDrive\\Desktop\\Interview\\CodingPractice\\Coding Practice\\obj\\",
+        "outputPath": "C:\\Users\\ramla\\OneDrive\\Desktop\\AliceBlue\\Practice\\Coding Practice\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
         "configFilePaths": [
           "C:\\Users\\ramla\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
@@ -55,7 +58,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.102\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.306\\RuntimeIdentifierGraph.json"
         }
       }
     }
