@@ -26,8 +26,8 @@ namespace Coding_Practice.Leetcode_TopInterviewQuestions
             //int[] nums = { 1,2,3 };
             //var ans = Subsets(nums);
 
-            string s = "abcadcbb";
-            var ans = LengthOfLongestSubstring1(s);
+            int n = 2, k = 1;
+            var ans = NumsSameConsecDiff(n, k);
         }
 
         #region Two Sum
@@ -523,6 +523,110 @@ namespace Coding_Practice.Leetcode_TopInterviewQuestions
             return maxLength;
         }
 
+        #endregion
+
+        #region Min Stack
+        public class Node
+        {
+            public int val;
+            public int min;
+            public Node next;
+            public Node(int val)
+            {
+                this.val = val;
+            }
+        }
+        public class MinStack
+        {
+
+            public Node head;
+            public MinStack()
+            {
+                head = null;
+            }
+
+            public void Push(int val)
+            {
+                Node newNode = new Node(val);
+                if (head == null)
+                    newNode.min = val;
+                else
+                    newNode.min = Math.Min(val,head.min);
+                newNode.next = head;
+                head = newNode;
+            }
+
+            public void Pop()
+            {
+                if(head != null)
+                    head = head.next;
+            }
+
+            public int Top()
+            {
+                if(head != null)
+                    return head.val;
+                return -1;
+            }
+
+            public int GetMin()
+            {
+                if(head != null)
+                    return head.min;
+                return -1;
+            }
+        }
+
+        #endregion
+
+        #region Numbers With Same Consecutive Differences
+        public int[] NumsSameConsecDiff(int n, int k)
+        {
+            List<string> list = new List<string>();
+            for(int i = 1; i <= 9; i++)
+            {
+                string numStr = Convert.ToString(i);
+                if ((i + k <= 9) && n > 1)
+                {
+                    int num = i + k;
+                    numStr += Convert.ToString(num);
+                    for (int j = 2; j < n; j++)
+                    {
+                        int prev = Convert.ToInt32(numStr[i]);
+                        if (prev + k <= 9)
+                            numStr += Convert.ToString(prev);
+                        if(prev - k >= 0)
+                            numStr += Convert.ToString(prev);
+                    }
+                }
+                else
+                    break;
+                if(numStr.Length == n)
+                    list.Add(numStr);
+            }
+            for (int i = 9; i > 0; i--)
+            {
+                string numStr = Convert.ToString(i);
+                if ((i - k >= 0) && n > 1)
+                {
+                    int num = i - k;
+                    numStr += Convert.ToString(num);
+                    for (int j = 2; j < n; j++)
+                    {
+                        numStr += numStr[j - 2];
+                    }
+                }
+                else
+                    break;
+                if (numStr.Length == n && !list.Contains(numStr))
+                    list.Add(numStr);
+            }
+            int[] ans = new int[list.Count];
+            for (int i = 0; i < list.Count; i++)
+                ans[i] = Convert.ToInt32(list[i]);
+            return ans;
+
+        }
         #endregion
 
     }
