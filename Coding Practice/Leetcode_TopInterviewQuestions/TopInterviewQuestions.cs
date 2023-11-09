@@ -26,16 +26,23 @@ namespace Coding_Practice.Leetcode_TopInterviewQuestions
             //int[] nums = { 1,2,3 };
             //var ans = Subsets(nums);
 
-            int n = 2, k = 1;
-            var ans = NumsSameConsecDiff(n, k);
+            //int n = 2, k = 1;
+            //var ans = NumsSameConsecDiff(n, k);
+
+            //int n = -123;
+            //var ans = Reverse(n);
+
+            string digits = "23";
+            var ans = LetterCombinations1(digits);
+
         }
 
         #region Two Sum
         public int[] TwoSum(int[] nums, int target)
         {
-            Dictionary<int,int> map = new Dictionary<int,int>();
+            Dictionary<int, int> map = new Dictionary<int, int>();
             int[] ans = new int[2];
-            for(int i = 0; i < nums.Length; i++)
+            for (int i = 0; i < nums.Length; i++)
             {
                 int remaining = target - nums[i];
                 if (map.ContainsKey(remaining))
@@ -55,7 +62,7 @@ namespace Coding_Practice.Leetcode_TopInterviewQuestions
         public int RomanToInt(string s)
         {
             int ans = 0, n = s.Length;
-            for(int i = 0; i < n; i++)
+            for (int i = 0; i < n; i++)
             {
                 if (s[i] == 'I')
                 {
@@ -127,12 +134,12 @@ namespace Coding_Practice.Leetcode_TopInterviewQuestions
             map['M'] = 1000;
 
             int n = s.Length, ans = 0;
-            for(int i = 0;i < n; i++)
+            for (int i = 0; i < n; i++)
             {
                 if (i < n - 1 && map[s[i]] < map[s[i + 1]])
                     ans -= map[s[i]];
                 else
-                    ans+= map[s[i]];
+                    ans += map[s[i]];
             }
             return ans;
         }
@@ -143,10 +150,10 @@ namespace Coding_Practice.Leetcode_TopInterviewQuestions
         public string LongestCommonPrefix(string[] strs)
         {
             int n = strs.Length, i = 0;
-            for(; i < strs[0].Length; i++)
+            for (; i < strs[0].Length; i++)
             {
                 char c = strs[0][i];
-                for(int j = 1;j < n; j++)
+                for (int j = 1; j < n; j++)
                 {
                     if (strs[j].Length <= i || strs[j][i] != c)
                         return strs[0].Substring(0, i);
@@ -161,7 +168,7 @@ namespace Coding_Practice.Leetcode_TopInterviewQuestions
             Array.Sort(strs);
             string first = strs[0], second = strs[strs.Length - 1], ans = "";
             int i = 0;
-            while(i < first.Length && i < second.Length)
+            while (i < first.Length && i < second.Length)
             {
                 if (first[i] == second[i])
                     ans += first[i];
@@ -178,7 +185,7 @@ namespace Coding_Practice.Leetcode_TopInterviewQuestions
         public bool IsValid(string s)
         {
             Stack<char> stack = new Stack<char>();
-            for(int i = 0;i<s.Length;i++)
+            for (int i = 0; i < s.Length; i++)
             {
                 char c = s[i];
                 if (c == '(')
@@ -188,7 +195,7 @@ namespace Coding_Practice.Leetcode_TopInterviewQuestions
                 else if (c == '[')
                     stack.Push(']');
                 else if (stack.Count == 0 || stack.Pop() != c)
-                        return false;
+                    return false;
             }
             return stack.Count == 0;
         }
@@ -209,9 +216,9 @@ namespace Coding_Practice.Leetcode_TopInterviewQuestions
         {
             ListNode dummy = new ListNode();
             ListNode temp = dummy;
-            while(list1 != null && list2 != null)
+            while (list1 != null && list2 != null)
             {
-                if(list1.val < list2.val)
+                if (list1.val < list2.val)
                 {
                     temp.next = list1;
                     list1 = list1.next;
@@ -223,9 +230,9 @@ namespace Coding_Practice.Leetcode_TopInterviewQuestions
                 }
                 temp = temp.next;
             }
-            if(list1 != null)
+            if (list1 != null)
                 temp.next = list1;
-            if(list2 != null)
+            if (list2 != null)
                 temp.next = list2;
             return dummy.next;
         }
@@ -237,7 +244,7 @@ namespace Coding_Practice.Leetcode_TopInterviewQuestions
             int i = 1, j = 1, n = nums.Length;
             for (; j < n; j++)
             {
-                if (nums[j] != nums[j-1])
+                if (nums[j] != nums[j - 1])
                 {
                     nums[i] = nums[j];
                     i++;
@@ -251,10 +258,10 @@ namespace Coding_Practice.Leetcode_TopInterviewQuestions
         public int StrStr(string haystack, string needle)
         {
             int n = haystack.Length, m = needle.Length;
-            for(int i = 0;i<n;i++)
+            for (int i = 0; i < n; i++)
             {
                 int j = 0;
-                for(int k = i;k< n && j < m;k++,j++) 
+                for (int k = i; k < n && j < m; k++, j++)
                 {
                     if (haystack[k] != needle[j])
                         break;
@@ -270,7 +277,7 @@ namespace Coding_Practice.Leetcode_TopInterviewQuestions
         public int[] PlusOne(int[] digits)
         {
             int carry = 1, n = digits.Length;
-            for(int i = n-1; i >= 0; i--)
+            for (int i = n - 1; i >= 0; i--)
             {
                 if (carry == 0)
                     break;
@@ -278,7 +285,7 @@ namespace Coding_Practice.Leetcode_TopInterviewQuestions
                 digits[i] = sum % 10;
                 carry = sum / 10;
             }
-            if(carry == 1)
+            if (carry == 1)
             {
                 int[] ans = new int[n + 1];
                 ans[0] = 1;
@@ -293,7 +300,7 @@ namespace Coding_Practice.Leetcode_TopInterviewQuestions
         {
             if (x <= 1) return x;
             int l = 1, r = x, mid;
-            while(l < r)
+            while (l < r)
             {
                 mid = l + (r - l) / 2;
                 if (mid > x / mid)
@@ -308,9 +315,9 @@ namespace Coding_Practice.Leetcode_TopInterviewQuestions
         #region Climbing Stairs
         public int ClimbStairs(int n)
         {
-            if(n <= 2) return n;
+            if (n <= 2) return n;
             int first = 1, second = 2, curr = 0;
-            for(int i = 3;i<= n; i++)
+            for (int i = 3; i <= n; i++)
             {
                 curr = first + second;
                 first = second;
@@ -324,7 +331,7 @@ namespace Coding_Practice.Leetcode_TopInterviewQuestions
         public void Merge(int[] nums1, int m, int[] nums2, int n)
         {
             int i = m - 1, j = n - 1, k = m + n - 1;
-            while(j >= 0)
+            while (j >= 0)
             {
                 if (i >= 0 && nums1[i] > nums2[j])
                     nums1[k--] = nums1[i--];
@@ -340,10 +347,10 @@ namespace Coding_Practice.Leetcode_TopInterviewQuestions
             Array.Sort(nums);
             int n = nums.Length, i = 0;
             List<IList<int>> ans = new List<IList<int>>();
-            while(i < n-2)
+            while (i < n - 2)
             {
                 int j = i + 1, k = n - 1;
-                while(j < k)
+                while (j < k)
                 {
                     int sum = nums[j] + nums[k];
                     if (nums[i] + nums[j] + nums[k] == 0)
@@ -352,16 +359,16 @@ namespace Coding_Practice.Leetcode_TopInterviewQuestions
                         ans.Add(list);
                         while ((j + 1) < k && nums[j] == nums[j + 1])
                             j++;
-                        while ((k -1) > j && nums[k] == nums[k - 1])
+                        while ((k - 1) > j && nums[k] == nums[k - 1])
                             k--;
-                        j++;k--;
+                        j++; k--;
                     }
                     else if (sum > nums[i])
                         k--;
                     else
                         j++;
                 }
-                while((i+1) < n-2 && nums[i] == nums[i+1])
+                while ((i + 1) < n - 2 && nums[i] == nums[i + 1])
                     i++;
                 i++;
             }
@@ -388,11 +395,11 @@ namespace Coding_Practice.Leetcode_TopInterviewQuestions
         }
         public void PermuteBacktrack(IList<IList<int>> ans, IList<int> list, int[] nums)
         {
-            if(list.Count == nums.Length)
+            if (list.Count == nums.Length)
                 ans.Add(new List<int>(list));
             else
             {
-                for(int i = 0; i < nums.Length; i++)
+                for (int i = 0; i < nums.Length; i++)
                 {
                     if (list.Contains(nums[i]))
                         continue;
@@ -413,7 +420,7 @@ namespace Coding_Practice.Leetcode_TopInterviewQuestions
                 char temp = s[l];
                 s[l] = s[r];
                 s[r] = temp;
-                l++;r--;
+                l++; r--;
             }
         }
         #endregion
@@ -428,7 +435,7 @@ namespace Coding_Practice.Leetcode_TopInterviewQuestions
         public void SubsetsBacktrack(IList<IList<int>> ans, IList<int> list, int[] nums, int index)
         {
             ans.Add(new List<int>(list));
-            for(int i = index; i < nums.Length; i++)
+            for (int i = index; i < nums.Length; i++)
             {
                 list.Add(nums[i]);
                 SubsetsBacktrack(ans, list, nums, i + 1);
@@ -441,7 +448,7 @@ namespace Coding_Practice.Leetcode_TopInterviewQuestions
         public ListNode ReverseList(ListNode head)
         {
             ListNode prev = null, next, temp = head;
-            while(temp != null)
+            while (temp != null)
             {
                 next = temp.next;
                 temp.next = prev;
@@ -452,23 +459,24 @@ namespace Coding_Practice.Leetcode_TopInterviewQuestions
         }
         #endregion
 
+
         #region Add Two Numbers
         public ListNode AddTwoNumbers(ListNode l1, ListNode l2)
         {
             int len1 = 0, len2 = 0;
             ListNode temp1 = l1, temp2 = l2;
-            while(temp1 != null)
+            while (temp1 != null)
             {
                 len1++;
                 temp1 = temp1.next;
             }
-            while(temp2 != null)
+            while (temp2 != null)
             {
                 len2++;
                 temp2 = temp2.next;
             }
             temp1 = l1; temp2 = l2;
-            if(len1 > len2)
+            if (len1 > len2)
             {
                 AddTwoNumbersUtil(temp1, temp2);
                 return l1;
@@ -492,7 +500,7 @@ namespace Coding_Practice.Leetcode_TopInterviewQuestions
                 l1 = l1.next;
                 l2 = l2.next;
             }
-            while(l1 != null)
+            while (l1 != null)
             {
                 prev = l1;
                 val = l1.val + carry;
@@ -500,7 +508,7 @@ namespace Coding_Practice.Leetcode_TopInterviewQuestions
                 carry = val / 10;
                 l1 = l1.next;
             }
-            if(carry == 1)
+            if (carry == 1)
             {
                 ListNode listNode = new ListNode(1);
                 prev.next = listNode;
@@ -551,27 +559,27 @@ namespace Coding_Practice.Leetcode_TopInterviewQuestions
                 if (head == null)
                     newNode.min = val;
                 else
-                    newNode.min = Math.Min(val,head.min);
+                    newNode.min = Math.Min(val, head.min);
                 newNode.next = head;
                 head = newNode;
             }
 
             public void Pop()
             {
-                if(head != null)
+                if (head != null)
                     head = head.next;
             }
 
             public int Top()
             {
-                if(head != null)
+                if (head != null)
                     return head.val;
                 return -1;
             }
 
             public int GetMin()
             {
-                if(head != null)
+                if (head != null)
                     return head.min;
                 return -1;
             }
@@ -583,7 +591,7 @@ namespace Coding_Practice.Leetcode_TopInterviewQuestions
         public int[] NumsSameConsecDiff(int n, int k)
         {
             List<string> list = new List<string>();
-            for(int i = 1; i <= 9; i++)
+            for (int i = 1; i <= 9; i++)
             {
                 string numStr = Convert.ToString(i);
                 if ((i + k <= 9) && n > 1)
@@ -595,13 +603,13 @@ namespace Coding_Practice.Leetcode_TopInterviewQuestions
                         int prev = Convert.ToInt32(numStr[i]);
                         if (prev + k <= 9)
                             numStr += Convert.ToString(prev);
-                        if(prev - k >= 0)
+                        if (prev - k >= 0)
                             numStr += Convert.ToString(prev);
                     }
                 }
                 else
                     break;
-                if(numStr.Length == n)
+                if (numStr.Length == n)
                     list.Add(numStr);
             }
             for (int i = 9; i > 0; i--)
@@ -626,8 +634,145 @@ namespace Coding_Practice.Leetcode_TopInterviewQuestions
                 ans[i] = Convert.ToInt32(list[i]);
             return ans;
 
+
+
+
+        }
+
+        #endregion
+
+        #region Longest Palindromic Substring
+        public string LongestPalindrome(string s)
+        {
+            string max = string.Empty;
+            for (int i = 0; i < s.Length; i++)
+            {
+                string l = Extend(s, i, i);
+                string r = Extend(s, i, i + 1);
+                if (l.Length > max.Length)
+                    max = l;
+                if (r.Length > max.Length) max = r;
+            }
+            return max;
+        }
+        public string Extend(string s, int i, int j)
+        {
+            for (; i >= 0 && j < s.Length; i--, j++)
+            {
+                if (s[i] != s[j])
+                    break;
+            }
+            return s.Substring(i + 1, j - i - 1);
+        }
+        public string LongestPalindrome1(string s)
+        {
+            if (isPalindrome(s))
+            {
+                return s;
+            }
+            string l = LongestPalindrome1(s.Substring(0, s.Length - 1));
+            string r = LongestPalindrome1(s.Substring(1, s.Length - 1));
+            if (l.Length > r.Length)
+                return l;
+            else
+                return r;
+        }
+        public bool isPalindrome(string s)
+        {
+            int i = 0, j = s.Length - 1;
+            while (i < j)
+                if (s[i++] != s[j--])
+                    return false;
+            return true;
         }
         #endregion
 
+        #region Reverse Integer
+        public int Reverse(int x)
+        {
+            int result = 0;
+            while (x != 0)
+            {
+                int rem = x % 10;
+                int newResult = result * 10 + rem;
+                if ((newResult - rem) / 10 != result)
+                    return 0;
+                result = newResult;
+                x = x / 10;
+            }
+            return result;
+        }
+        #endregion
+
+        #region Letter Combinations of a Phone Number
+        public IList<string> LetterCombinations(string digits)
+        {
+            IList<string> list = new List<string>();
+            if (digits.Length == 0)
+                return list;
+            LetterCombinationsUtil(list, "", digits, 0);
+            return list;
+        }
+        public void LetterCombinationsUtil(IList<string> list, string s, string digits, int index)
+        {
+            if (s.Length == digits.Length)
+                list.Add(s);
+            for (int i = index; i < digits.Length; i++)
+            {
+                char c = digits[i];
+                var stringList = GetChars(c);
+                foreach (var str in stringList)
+                {
+                    s += str;
+                    LetterCombinationsUtil(list, s, digits, i + 1);
+                    s = s.Substring(0, s.Length - 1);
+                }
+            }
+        }
+        public List<string> GetChars(char num)
+        {
+            List<string> stringList = new List<string>();
+            if (num == '2')
+                stringList = new List<string>() { "a", "b", "c" };
+            else if (num == '3')
+                stringList = new List<string>() { "d", "e", "f" };
+            else if (num == '4')
+                stringList = new List<string>() { "g", "h", "i" };
+            else if (num == '5')
+                stringList = new List<string>() { "j", "k", "l" };
+            else if (num == '6')
+                stringList = new List<string>() { "m", "n", "o" };
+            else if (num == '7')
+                stringList = new List<string>() { "p", "q", "r", "s" };
+            else if (num == '8')
+                stringList = new List<string>() { "t", "u", "v" };
+            else if (num == '9')
+                stringList = new List<string>() { "w", "x", "y", "z" };
+            return stringList;
+
+        }
+
+        public IList<string> LetterCombinations1(string digits)
+        {
+            IList<string> list = new List<string>();
+            if (digits.Length == 0)
+                return list;
+            list.Add("");
+            for (int i = 0; i < digits.Length; i++)
+            {
+                while (list[0].Length == i)
+                {
+                    var t = list[0];
+                    list.RemoveAt(0);
+                    var strList = GetChars(digits[i]);
+                    foreach (var str in strList)
+                    {
+                        list.Add(t + str);
+                    }
+                }
+            }
+            return list;
+        }
+        #endregion
     }
 }
